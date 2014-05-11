@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BillKill</string>
+    <string name="app_name">Bill Kill</string>
     <string name="hello_world">Hello world!</string>
     <string name="register">Register</string>
     <string name="country_code">91</string>
     <string name="done">Done</string>
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">Email (Optional)</string>
     <string name="prompt_phone_number">Phone Number</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
@@ -14,5 +14,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_phone_num">This phone number is invalid</string>
+
+    <string name="register_using_phone">BillKill will register with the phone number %s to uniquely identify your account. </string>
 
 </resources>

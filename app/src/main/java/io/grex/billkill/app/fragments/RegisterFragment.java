@@ -8,17 +8,17 @@ import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +30,12 @@ import io.grex.billkill.app.R;
 
 public class RegisterFragment extends Fragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
-    @InjectView(R.id.textView_country_code)
-    TextView mTextViewCountryCode;
-    @InjectView(R.id.editText_phone_number)
-    EditText mEditTextPhoneNumber;
+    @InjectView(R.id.textView_phone_number)
+    TextView mPhoneNumberView;
     @InjectView(R.id.email_address)
     AutoCompleteTextView mEmailView;
-    @InjectView(R.id.button_done)
-    Button mButtonDone;
 
-    public static RegisterFragment getInstance(){
+    public static RegisterFragment getInstance() {
         RegisterFragment fragment = new RegisterFragment();
         return fragment;
     }
@@ -54,13 +50,24 @@ public class RegisterFragment extends Fragment implements android.support.v4.app
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.inject(this, view);
 
-        mTextViewCountryCode.setText(getCountryCode());
-        mEditTextPhoneNumber.setText(getPhoneNumber());
+        getPhoneNumber();
         populateAutoComplete();
     }
 
     private String getPhoneNumber() {
         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        PhoneNumberUtil util = PhoneNumberUtil.getInstance();
+        try {
+            Phonenumber.PhoneNumber number = util.parse(telephonyManager.getLine1Number(), getCountryCode().toUpperCase());
+
+            if (util.isPossibleNumber(number) && util.isValidNumber(number)) {
+                String phNum = util.format(number, PhoneNumberUtil.PhoneNumberFormat.E164);
+                String text = String.format(getString(R.string.register_using_phone), phNum);
+                mPhoneNumberView.setText(text);
+            }
+        } catch (NumberParseException e) {
+            e.printStackTrace();
+        }
         return telephonyManager.getLine1Number();
     }
 
@@ -69,9 +76,9 @@ public class RegisterFragment extends Fragment implements android.support.v4.app
         getLoaderManager().initLoader(0, null, this);
     }
 
-    @OnClick(R.id.button_done)
+    @OnClick(R.id.button_register)
     public void onClick(View view) {
-        if (view.getId() == R.id.button_done) {
+        if (view.getId() == R.id.button_register) {
             attemptRegister();
         }
     }
@@ -84,27 +91,14 @@ public class RegisterFragment extends Fragment implements android.support.v4.app
 
     private void attemptRegister() {
 
-        mEditTextPhoneNumber.setError(null);
         mEmailView.setError(null);
 
         String email = mEmailView.getText().toString();
-        String phone = mEditTextPhoneNumber.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        if (!TextUtils.isEmpty(phone) && !isPhoneValid(phone)) {
-            mEditTextPhoneNumber.setError(getString(R.string.error_invalid_phone_num));
-            focusView = mEditTextPhoneNumber;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
+        if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -175,23 +169,12 @@ public class RegisterFragment extends Fragment implements android.support.v4.app
         mEmailView.setAdapter(adapter);
     }
 
-    private String getCountryCode(){
+    private String getCountryCode() {
         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         return telephonyManager.getSimCountryIso();
     }
 
     private boolean isEmailValid(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private boolean isPhoneValid(String phone) {
-
-        if(phone.startsWith("+")) {
-            return PhoneNumberUtils.isGlobalPhoneNumber(phone);
-        } else {
-
-            return false;
-        }
-
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
