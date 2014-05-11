@@ -37,7 +37,7 @@
 
         <activity
             android:name=".NewBillActivity"
-            android:label="@string/title_activity_new_bill_acitivity" >
+            android:label="@string/title_activity_new_bill_activity" >
         </activity>
 
     </application>

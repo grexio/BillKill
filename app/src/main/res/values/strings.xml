@@ -16,9 +16,10 @@
     <string name="register_using_phone">BillKill will register with the phone number %s to uniquely identify your account. </string>
     <string name="balance">Balance :</string>
     <string name="sample_balance">-2222</string>
-    <string name="title_activity_new_bill_acitivity">NewBillAcitivity</string>
+    <string name="title_activity_new_bill_activity">NewBillActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_base">BaseActivity</string>
-    <string name="font">fonts/Raleway-Light.otf</string>
+    <string name="font">fonts/Roboto-Regular.ttf</string>
+    <string name="image_desc">imageDesc</string>
 
 </resources>

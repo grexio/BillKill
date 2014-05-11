@@ -12,6 +12,7 @@ public class BaseActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PreferencesManager.initializeInstance(getApplicationContext());
         super.onCreate(savedInstanceState);
         CalligraphyConfig.initDefault(getString(R.string.font));
     }
@@ -20,6 +21,4 @@ public class BaseActivity extends FragmentActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(new CalligraphyContextWrapper(newBase));
     }
-
-
 }

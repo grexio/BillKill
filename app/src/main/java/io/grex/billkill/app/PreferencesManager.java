@@ -1,6 +1,5 @@
 package io.grex.billkill.app;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 

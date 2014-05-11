@@ -1,13 +1,10 @@
 package io.grex.billkill.app;
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
+import io.grex.billkill.app.fragments.NewBillFragment;
 
 
 public class NewBillActivity extends BaseActivity {
@@ -17,8 +14,8 @@ public class NewBillActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_bill);
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, NewBillFragment.getInstance())
                     .commit();
         }
     }
@@ -43,19 +40,4 @@ public class NewBillActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_new_bill, container, false);
-            return rootView;
-        }
-    }
 }

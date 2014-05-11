@@ -36,10 +36,19 @@ public class RegisterFragment extends Fragment implements LoaderManager.LoaderCa
     TextView mPhoneNumberView;
     @InjectView(R.id.email_address)
     AutoCompleteTextView mEmailView;
+    RegisterListener mRegisterListener;
 
     public static RegisterFragment getInstance() {
         RegisterFragment fragment = new RegisterFragment();
         return fragment;
+    }
+
+    public interface RegisterListener {
+        public void onRegistered();
+    }
+
+    public void setRegisterListener(RegisterListener listener) {
+        mRegisterListener = listener;
     }
 
     @Override
@@ -119,7 +128,7 @@ public class RegisterFragment extends Fragment implements LoaderManager.LoaderCa
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-
+            mRegisterListener.onRegistered();
         }
     }
 
