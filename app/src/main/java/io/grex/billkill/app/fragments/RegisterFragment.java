@@ -6,9 +6,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import io.grex.billkill.app.R;
 
-public class RegisterFragment extends Fragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
+public class RegisterFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @InjectView(R.id.textView_phone_number)
     TextView mPhoneNumberView;
@@ -38,6 +40,12 @@ public class RegisterFragment extends Fragment implements android.support.v4.app
     public static RegisterFragment getInstance() {
         RegisterFragment fragment = new RegisterFragment();
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().getActionBar().hide();
     }
 
     @Override
@@ -98,7 +106,7 @@ public class RegisterFragment extends Fragment implements android.support.v4.app
         boolean cancel = false;
         View focusView = null;
 
-        if (!isEmailValid(email)) {
+        if (!TextUtils.isEmpty(email) && !isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;

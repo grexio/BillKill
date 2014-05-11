@@ -8,13 +8,17 @@
     <string name="done">Done</string>
     <string name="prompt_email">Email (Optional)</string>
     <string name="prompt_phone_number">Phone Number</string>
-
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_phone_num">This phone number is invalid</string>
-
     <string name="register_using_phone">BillKill will register with the phone number %s to uniquely identify your account. </string>
+    <string name="balance">Balance :</string>
+    <string name="sample_balance">-2222</string>
+    <string name="title_activity_new_bill_acitivity">NewBillAcitivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="font">fonts/Raleway-Light.otf</string>
 
 </resources>
