@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="io.grex.billkill.app.NewBillActivity" >
+
+    <item android:id="@+id/action_add_new_bill"
+        android:title="@string/new_bill"
+        android:orderInCategory="1"
+        android:icon="@android:drawable/ic_menu_add"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_logout"
+        android:title="@string/logout"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+</menu>

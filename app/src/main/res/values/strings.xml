@@ -21,5 +21,7 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="font">fonts/Roboto-Regular.ttf</string>
     <string name="image_desc">imageDesc</string>
+    <string name="new_bill">New Bill</string>
+    <string name="logout">Logout</string>
 
 </resources>
