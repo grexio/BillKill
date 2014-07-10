@@ -7,11 +7,11 @@
         android:title="@string/new_bill"
         android:orderInCategory="1"
         android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="always" />
+        android:showAsAction="always" />
 
     <item android:id="@+id/action_logout"
         android:title="@string/logout"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        android:showAsAction="never" />
 
 </menu>
